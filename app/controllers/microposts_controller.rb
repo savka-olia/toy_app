@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :set_micropost, only: %i[ show edit update destroy ]
+  after_action :get_params_for_text, only: :get_text
 
   # GET /microposts or /microposts.json
   def index
@@ -57,6 +58,11 @@ class MicropostsController < ApplicationController
     end
   end
 
+  # GET/microposts/1/hello
+  def get_text
+    render html: "We have new callback"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_micropost
@@ -67,4 +73,9 @@ class MicropostsController < ApplicationController
     def micropost_params
       params.require(:micropost).permit(:content, :user_id)
     end
+
+    def get_params_for_text
+      puts "ID: #{params[:id]}, TEXT: #{prams[:text]}"
+    end
+
 end
